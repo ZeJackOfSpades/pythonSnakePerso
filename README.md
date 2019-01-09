@@ -5,4 +5,4 @@ This is project is from a famous old game name Snake
 
 From the Version 2.0.0, the snake move automatically depends on the arrow keys pressed.
 
-@author : Jacques and Philippe
+@author : Jacques MONNIER and Philippe MONNIER
