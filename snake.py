@@ -21,6 +21,7 @@ Version	:			1.0		add evenements plus snake deplacement
 							of the music 
 					2.0.0	Automatization of the deplacement of the snake
 					2.0.1	add the possibility to stop the music when "s" is pushed
+					2.0.2	add few comments in fruitAleatoire function and in the main program
 __todo__ :	Score enregistré
 			Classement des scores
 
@@ -31,8 +32,36 @@ import time
 import os
 
 #
-def fruitAleatoire(xMax, yMax, snakeMap, rayonCercle,yMaxMargeRectMapPlay,marge, nbFruit):
+def fruitAleatoire(xMax, yMax, snakeMap, rayonCercle, yMaxMargeRectMapPlay,marge, nbFruit):
+	"""
+		:param xMax: the xSize of the windowSurface
+		:param yMax: the ySize of the windowSurface
+		:param snakeMap: contains all the coordinates of the snake (It is useful for not drawing the food on the snake)
+		:param rayonCercle: The radius of the food
+		:param yMaxMargeRectMapPlay: To keep a place to put some information
+		:param marge: the thikness of the border of the rect
+		:param nbFruit: The number of fruits we want 
+		:type xMax: INT
+		:type yMax: INT
+		:type snakeMap: list 
+		:type rayonCercle: INT 
+		:type yMaxMargeRectMapPlay: INT
+		:type marge: INT
+		:type nbFruit: INT
+		:return: nothing
+		:rtype: nothing
 
+		:Example:
+
+		Un exemple écrit après un saut de ligne.
+
+		.. seealso:: main program
+		.. warning:: the number of fruits generated is random but it will not exceed nbFruit
+					 xMax must be EVEN and yMax must be EVEN too
+		.. note:: 
+		.. todo:: Must be updated to be more "general"
+				  Arrange the randrange to be more "general" 
+	"""
 	for x in range(1,nbFruit):
 		lockDrawFruit	=	False
 		xAleatoire	=	random.randrange(rayonCercle +  4 * marge, xMax - rayonCercle,8)
@@ -56,7 +85,7 @@ windowResolution		=	[xMax, yMax]
 yMaxMargeRectMapPlay	=	40
 margeRectPlay 			=	1
 rectMapPlay				=	pygame.Rect(0, 0, xMax-1, yMax-yMaxMargeRectMapPlay)
-snakeMap				=	[]
+snakeMap				=	[] 														#Save the coordinates of the snake
 
 
 rectInfo				=	pygame.Rect(0,yMax-yMaxMargeRectMapPlay+1,xMax-1, yMax-1)
@@ -184,10 +213,11 @@ while launched:
 			elif event.key == pygame.K_q:
 				print("QUIT")
 				launched = False
-
+		#Each interrupt move the snake depends on the value of gestionDeplacement
 		elif event.type	==	pygame.USEREVENT:
 			if(gestionDeplacement	==	0):
 				print("HAUT")
+				#administration of the deplacement depends on the color of the next move
 				if(yPos != deltaDeplacement):
 					if (mainWindow.get_at((xPos, yPos - deltaDeplacement)) == blueColor):
 						soundCoins.play()
