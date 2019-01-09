@@ -1,6 +1,6 @@
 #coding:utf-8
 """
-__version__2.0.1
+__version__2.0.2
 Version	:			1.0		add evenements plus snake deplacement
 					1.1		add analysis (a), info (i), quit(q and red), restart (r) evenements 
 					1.2		add random fruit generation (f)
