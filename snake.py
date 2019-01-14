@@ -67,8 +67,8 @@ def fruitAleatoire(xMax, yMax, snakeMap, rayonCercle, yMaxMargeRectMapPlay,marge
 	"""
 	for x in range(1,nbFruit):
 		lockDrawFruit	=	False
-		xAleatoire	=	random.randrange(rayonCercle +  4 * marge, xMax - rayonCercle,8)
-		yAleatoire	=	random.randrange(rayonCercle +  4 * marge, yMax - rayonCercle - yMaxMargeRectMapPlay,8)
+		xAleatoire	=	random.randrange(rayonCercle +  rayonCercle * marge, xMax - rayonCercle, 2*rayonCercle)
+		yAleatoire	=	random.randrange(rayonCercle +  rayonCercle * marge, yMax - rayonCercle - yMaxMargeRectMapPlay,2*rayonCercle)
 		for element in snakeMap:
 			if (element[0]-2*rayonCercle < xAleatoire < element[0]+2*rayonCercle) and element[1]-2*rayonCercle < yAleatoire < element[1]+2*rayonCercle:
 				lockDrawFruit	=	True		
@@ -82,8 +82,8 @@ def fruitAleatoire(xMax, yMax, snakeMap, rayonCercle, yMaxMargeRectMapPlay,marge
 launched			=	True
 
 
-xMax					=	640 // 2
-yMax					=	480 // 2
+xMax					=	640 	#OLD 640 // 2
+yMax					=	480 	#OLD 480 // 2
 windowResolution		=	[xMax, yMax]
 yMaxMargeRectMapPlay	=	40
 margeRectPlay 			=	1
@@ -123,11 +123,11 @@ pygame.display.set_caption("SNAKE")
 mainWindow	=	pygame.display.set_mode(windowResolution, pygame.RESIZABLE)
 
 ubuntuFont		=	pygame.font.SysFont("ubuntu",15)
-musicList		=	os.listdir("/home/user/Documents/PythonTests/Projects/snake/Musics")
+musicList		=	os.listdir("Musics")
 musicRepository	=	"Musics/"
 
 soundRepository	=	"SoundForProgramming/"
-soundList		=	os.listdir("/home/user/Documents/PythonTests/Projects/snake/SoundForProgramming")
+soundList		=	os.listdir("SoundForProgramming")
 soundCoinsName	=	"Sonic Ring sound Effect in stereo.ogg"
 soundOuchName	=	"OUCH Sound Effect!.ogg"
 crashSoundName	=	"Broken glass sound effect.ogg"
