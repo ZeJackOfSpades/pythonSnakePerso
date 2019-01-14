@@ -1,6 +1,6 @@
 #coding:utf-8
 """
-__version__2.0.3
+__version__2.0.4
 Version	:			1.0		add evenements plus snake deplacement
 					1.1		add analysis (a), info (i), quit(q and red), restart (r) evenements 
 					1.2		add random fruit generation (f)
@@ -23,6 +23,9 @@ Version	:			1.0		add evenements plus snake deplacement
 					2.0.1	add the possibility to stop the music when "s" is pushed
 					2.0.2	add few comments in fruitAleatoire function and in the main program
 					2.0.3	set gestionDeplacement = 0 when restart "r"
+					2.0.4	change the link for the music and the SoundForProgramming, 
+							change the size of the window set at 640x480, 
+							change the algorithm of the fruit generation to be more general
 __todo__ :	Score enregistré
 			Classement des scores
 			check if enum exist in python
