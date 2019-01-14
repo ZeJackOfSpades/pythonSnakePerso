@@ -1,6 +1,6 @@
 #coding:utf-8
 """
-__version__2.0.2
+__version__2.0.3
 Version	:			1.0		add evenements plus snake deplacement
 					1.1		add analysis (a), info (i), quit(q and red), restart (r) evenements 
 					1.2		add random fruit generation (f)
@@ -22,8 +22,10 @@ Version	:			1.0		add evenements plus snake deplacement
 					2.0.0	Automatization of the deplacement of the snake
 					2.0.1	add the possibility to stop the music when "s" is pushed
 					2.0.2	add few comments in fruitAleatoire function and in the main program
+					2.0.3	set gestionDeplacement = 0 when restart "r"
 __todo__ :	Score enregistré
 			Classement des scores
+			check if enum exist in python
 
 """
 import pygame
@@ -60,6 +62,7 @@ def fruitAleatoire(xMax, yMax, snakeMap, rayonCercle, yMaxMargeRectMapPlay,marge
 					 xMax must be EVEN and yMax must be EVEN too
 		.. note:: 
 		.. todo:: Must be updated to be more "general"
+				  Must no quit if a wall is hit
 				  Arrange the randrange to be more "general" 
 	"""
 	for x in range(1,nbFruit):
@@ -154,22 +157,27 @@ while launched:
 				gestionDeplacement	=	0
 
 			elif event.key ==	pygame.K_DOWN:
+
 				gestionDeplacement	=	1
 						
 			elif event.key ==	pygame.K_LEFT:
+
 				gestionDeplacement	=	2
 
 			elif event.key ==	pygame.K_RIGHT:
+
 				gestionDeplacement	=	3
 			elif event.key == pygame.K_f:
+
 				fruitAleatoire(xMax, yMax, snakeMap, rayonCercle, yMaxMargeRectMapPlay, margeRectPlay, nbFruit)
 
 			elif event.key == pygame.K_r:
-				score 		= 0
+				score 				=	0
+				gestionDeplacement	=	0
 				pygame.draw.rect(mainWindow, blackColor,rectMapPlay)
-				xPos		=	xDepart
-				yPos		=	yDepart
-				snakeMap[:]	=	[]
+				xPos				=	xDepart
+				yPos				=	yDepart
+				snakeMap[:]			=	[]
 				snakeMap.append((xPos,yPos))
 				print(snakeMap)
 				pygame.draw.rect(mainWindow, greenColor,rectMapPlay, 1)
