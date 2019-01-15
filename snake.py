@@ -26,6 +26,9 @@ Version	:			1.0		add evenements plus snake deplacement
 					2.0.4	change the link for the music and the SoundForProgramming, 
 							change the size of the window set at 640x480, 
 							change the algorithm of the fruit generation to be more general
+					
+
+
 __todo__ :	Score enregistré
 			Classement des scores
 			check if enum exist in python
