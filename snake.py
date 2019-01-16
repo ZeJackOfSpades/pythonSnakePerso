@@ -1,6 +1,6 @@
 #coding:utf-8
 """
-__version__2.0.4
+__version__2.0.5
 Version	:			1.0		add evenements plus snake deplacement
 					1.1		add analysis (a), info (i), quit(q and red), restart (r) evenements 
 					1.2		add random fruit generation (f)
@@ -26,20 +26,38 @@ Version	:			1.0		add evenements plus snake deplacement
 					2.0.4	change the link for the music and the SoundForProgramming, 
 							change the size of the window set at 640x480, 
 							change the algorithm of the fruit generation to be more general
-					
+					2.0.5	change deplacement with an enum and now 
+							it is possible to go to the left or right or top or bottom at the beginning and at the restart of the game
 
 
-__todo__ :	Score enregistré
-			Classement des scores
-			check if enum exist in python
+__todo__ :	SCORE
+			rankings scores
+
 
 """
 import pygame
 import random
 import time
 import os
+from enum import Enum, auto 
 
-#
+#IF you want to see the values of the Class use list(Deplacement)
+class Deplacement(Enum):
+	"""
+		This is a class which contains all Enum for the deplacement of the snake
+
+		Attributes:
+			UP 		(int):	Equal to 0 
+			DOWN 	(int):	Set automatically (1)
+			LEFT 	(int):	Set automatically (2)
+			RIGHT 	(int):	Set automatically (3)
+			SIZE 	(int):	contains the size of the Deplacement attributes
+	"""
+	UP 		=	0
+	DOWN 	=	auto()
+	LEFT 	=	auto()
+	RIGHT 	=	auto()
+	SIZE 	=	auto()
 def fruitAleatoire(xMax, yMax, snakeMap, rayonCercle, yMaxMargeRectMapPlay,marge, nbFruit):
 	"""
 		:param xMax: the xSize of the windowSurface
@@ -87,8 +105,8 @@ def fruitAleatoire(xMax, yMax, snakeMap, rayonCercle, yMaxMargeRectMapPlay,marge
 #MAIN PROGRAM
 launched			=	True
 
-
-xMax					=	640 	#OLD 640 // 2
+#For the resolution you can multiply also with 4:3 to extend the resolution of the screen
+xMax					=	640 	#OLD 640 // 2 and must be a 4:3 for the screen 
 yMax					=	480 	#OLD 480 // 2
 windowResolution		=	[xMax, yMax]
 yMaxMargeRectMapPlay	=	40
@@ -148,6 +166,7 @@ snakeMap.append((xPos,yPos))
 
 pygame.draw.rect(mainWindow, blackColor, rectInfo)
 pygame.display.flip()
+
 soundCoins 	=	pygame.mixer.Sound(soundRepository + soundCoinsName)
 crashSound 	=	pygame.mixer.Sound(soundRepository + crashSoundName)
 ouchSound	=	pygame.mixer.Sound(soundRepository + soundOuchName)
@@ -160,26 +179,26 @@ while launched:
 
 		elif event.type	==	pygame.KEYDOWN:
 			if event.key == pygame.K_UP:
-				gestionDeplacement	=	0
+				gestionDeplacement	=	Deplacement.UP
 
 			elif event.key ==	pygame.K_DOWN:
 
-				gestionDeplacement	=	1
+				gestionDeplacement	=	Deplacement.DOWN
 						
 			elif event.key ==	pygame.K_LEFT:
 
-				gestionDeplacement	=	2
+				gestionDeplacement	=	Deplacement.LEFT
 
 			elif event.key ==	pygame.K_RIGHT:
 
-				gestionDeplacement	=	3
+				gestionDeplacement	=	Deplacement.RIGHT
 			elif event.key == pygame.K_f:
 
 				fruitAleatoire(xMax, yMax, snakeMap, rayonCercle, yMaxMargeRectMapPlay, margeRectPlay, nbFruit)
 
 			elif event.key == pygame.K_r:
 				score 				=	0
-				gestionDeplacement	=	0
+				#gestionDeplacement	=	0
 				pygame.draw.rect(mainWindow, blackColor,rectMapPlay)
 				xPos				=	xDepart
 				yPos				=	yDepart
@@ -227,9 +246,9 @@ while launched:
 			elif event.key == pygame.K_q:
 				print("QUIT")
 				launched = False
-		#Each interrupt move the snake depends on the value of gestionDeplacement
+		#Each USEREVENT interrupt move the snake depends on the value of gestionDeplacement
 		elif event.type	==	pygame.USEREVENT:
-			if(gestionDeplacement	==	0):
+			if(gestionDeplacement	==	Deplacement.UP):
 				print("HAUT")
 				#administration of the deplacement depends on the color of the next move
 				if(yPos != deltaDeplacement):
@@ -255,7 +274,8 @@ while launched:
 					crashSound.play()
 					time.sleep(1)
 					launched	=	False
-			if(gestionDeplacement	==	1):
+
+			if(gestionDeplacement	==	Deplacement.DOWN):
 				print("BAS")
 				if(yPos != (yMax - yMaxMargeRectMapPlay - deltaDeplacement)):
 					if (mainWindow.get_at((xPos, yPos + deltaDeplacement)) == blueColor):
@@ -280,7 +300,8 @@ while launched:
 					crashSound.play()
 					time.sleep(1)
 					launched	=	False
-			if(gestionDeplacement	==	2):
+
+			if(gestionDeplacement	==	Deplacement.LEFT):
 				print("GAUCHE")
 				if(xPos != deltaDeplacement):
 					if (mainWindow.get_at((xPos - deltaDeplacement, yPos)) == blueColor):
@@ -305,7 +326,8 @@ while launched:
 					crashSound.play()
 					time.sleep(1)
 					launched	=	False
-			if(gestionDeplacement	==	3):
+
+			if(gestionDeplacement	==	Deplacement.RIGHT):
 				print("DROITE")
 				if(xPos != xMax - deltaDeplacement):
 					if (mainWindow.get_at((xPos + deltaDeplacement, yPos)) == blueColor):
