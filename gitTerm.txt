@@ -1,0 +1,2 @@
+git stach 	:	pratique si on doit faire une modification dans l'immédiat d'un autre fichier
+git stach pop	:	reprendre le travail qu'on a staché 
